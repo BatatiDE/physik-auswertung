@@ -73,25 +73,25 @@ if st.button("🔍 Auswertung starten"):
     st.markdown("---")
     st.subheader("📊 Ergebnisse")
 
-    st.latex(f"C_D = {c_d:.1f} \\, \mathrm{{J/K}}")
+    st.latex(f"C_D = {c_d:.1f} \, \\mathrm{{J/K}}")
 
     st.markdown("**Edelstahl:**")
-    st.latex(f"c_S = ({c_s_steel:.2f} \\pm {dcs_steel:.2f}) \\, \mathrm{{J/(g \\cdot K)}}")
-    st.latex(f"C_m = {C_m_steel:.1f} \\, \mathrm{{J/(mol \\cdot K)}}")
+    st.latex(f"c_S = ({c_s_steel:.2f} \\pm {dcs_steel:.2f}) \, \\mathrm{{J/(g \\cdot K)}}")
+    st.latex(f"C_m = {C_m_steel:.1f} \, \\mathrm{{J/(mol \\cdot K)}}")
 
     st.markdown("**Kupfer:**")
-    st.latex(f"c_S = ({c_s_copper:.2f} \\pm {dcs_copper:.2f}) \\, \mathrm{{J/(g \\cdot K)}}")
-    st.latex(f"C_m = {C_m_copper:.1f} \\, \mathrm{{J/(mol \\cdot K)}}")
+    st.latex(f"c_S = ({c_s_copper:.2f} \\pm {dcs_copper:.2f}) \, \\mathrm{{J/(g \\cdot K)}}")
+    st.latex(f"C_m = {C_m_copper:.1f} \, \\mathrm{{J/(mol \\cdot K)}}")
 
     st.markdown("---")
     st.subheader("📈 Temperaturverläufe")
 
-    zeit = list(range(0, 95, 5))
-    temp_wasser = [22.2, 29.3, 45.0, 50.1, 50.6, 50.6, 50.5, 50.5, 50.4, 50.4, 50.4, 50.4, 50.4, 50.4, 50.4]
-    temp_stahl =  [22.2, 25.9, 27.6, 28.1, 29.0, 29.3, 28.5, 28.3, 28.0, 28.0, 27.9, 27.9, 27.9, 27.9, 27.9]
-    temp_kupfer = [22.2, 25.1, 29.1, 30.7, 29.4, 27.8, 26.9, 26.8, 26.4, 26.3, 26.2, 26.2, 26.2, 26.2, 26.2]
+    # Fixed equal-length values for plotting
+    zeit = list(range(0, 75, 5))
+    temp_wasser = [22.2, 29.3, 45.0, 50.1, 50.6, 50.6, 50.5, 50.5, 50.4, 50.4, 50.4, 50.4, 50.4, 50.4, 50.4][:len(zeit)]
+    temp_stahl =  [22.2, 25.9, 27.6, 28.1, 29.0, 29.3, 28.5, 28.3, 28.0, 28.0, 27.9, 27.9, 27.9, 27.9, 27.9][:len(zeit)]
+    temp_kupfer = [22.2, 25.1, 29.1, 30.7, 29.4, 27.8, 26.9, 26.8, 26.4, 26.3, 26.2, 26.2, 26.2, 26.2, 26.2][:len(zeit)]
 
-    # Matplotlib Diagramm
     fig, ax = plt.subplots()
     ax.plot(zeit, temp_wasser, label='Wasser', marker='o')
     ax.plot(zeit, temp_stahl, label='Edelstahl', marker='o')
@@ -102,7 +102,6 @@ if st.button("🔍 Auswertung starten"):
     ax.legend()
     st.pyplot(fig)
 
-    # Plotly Diagramm
     fig2 = go.Figure()
     fig2.add_trace(go.Scatter(x=zeit, y=temp_wasser, mode='lines+markers', name='Wasser'))
     fig2.add_trace(go.Scatter(x=zeit, y=temp_stahl, mode='lines+markers', name='Edelstahl'))
